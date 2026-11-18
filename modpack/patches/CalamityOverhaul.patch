@@ -1,0 +1,561 @@
+diff --git a/Content/GameModes/GodSmith/Framework/GodSmithArmorReset.cs b/Content/GameModes/GodSmith/Framework/GodSmithArmorReset.cs
+index 46ddd73..cd06d1f 100644
+--- a/Content/GameModes/GodSmith/Framework/GodSmithArmorReset.cs
++++ b/Content/GameModes/GodSmith/Framework/GodSmithArmorReset.cs
+@@ -141,11 +141,17 @@ namespace CalamityOverhaul.Content.GameModes.GodSmith.Framework
+             }
+             //没穿在身上（未穿满，或背包里的同款）：预告套装奖励
+             //原版 Format 会把单行整体嵌进占位符；多行时首行带前缀，后续行顶格排入
+-            string previewText = scheme.SetBonusLine.Value;
+-            if (!string.IsNullOrEmpty(previewText)) {
++            IEnumerable<GodSmithArmorScheme> previews =
++                GodSmithLoader.SharedPieceSchemes.TryGetValue(item.type, out var variants) ? variants : [scheme];
++            int previewIndex = 0;
++            foreach (GodSmithArmorScheme variant in previews) {
++                string previewText = variant.SetBonusLine.Value;
++                if (string.IsNullOrEmpty(previewText)) {
++                    continue;
++                }
+                 string[] lines = previewText.Split('\n');
+                 lines[0] = GameModeText.GodSmithSetPreview.Format(lines[0]);
+-                GodSmithTooltip.AddBodyLines(tooltips, "CWR_GodSmithSetPreview", string.Join("\n", lines), GodSmithTooltip.BodyGold);
++                GodSmithTooltip.AddBodyLines(tooltips, $"CWR_GodSmithSetPreview{previewIndex++}_", string.Join("\n", lines), GodSmithTooltip.BodyGold);
+             }
+         }
+     }
+diff --git a/Content/GameModes/GodSmith/Framework/GodSmithLoader.cs b/Content/GameModes/GodSmith/Framework/GodSmithLoader.cs
+index 51c4797..5ae112f 100644
+--- a/Content/GameModes/GodSmith/Framework/GodSmithLoader.cs
++++ b/Content/GameModes/GodSmith/Framework/GodSmithLoader.cs
+@@ -1,5 +1,6 @@
+ using System.Collections.Generic;
+ using System.Linq;
++using CalamityOverhaul.Content.GameModes.GodSmith.Armors.Reset;
+ 
+ namespace CalamityOverhaul.Content.GameModes.GodSmith.Framework
+ {
+@@ -17,6 +18,7 @@ namespace CalamityOverhaul.Content.GameModes.GodSmith.Framework
+             GodSmithArmorScheme.SchemesByBody = [];
+             GodSmithArmorScheme.SchemeByHead = [];
+             GodSmithArmorScheme.SchemeByPiece = [];
++            SharedPieceSchemes.Clear();
+             foreach (GodSmithArmorScheme scheme in GodSmithArmorScheme.Schemes) {
+                 scheme.Load();
+                 foreach (int body in scheme.BodyIDs) {
+@@ -42,10 +44,27 @@ namespace CalamityOverhaul.Content.GameModes.GodSmith.Framework
+             }
+         }
+ 
++        internal static Dictionary<int, List<GodSmithArmorScheme>> SharedPieceSchemes { get; } = [];
++
+         private static void Claim(Dictionary<int, GodSmithArmorScheme> table, int itemType, GodSmithArmorScheme scheme) {
+             if (table.TryAdd(itemType, scheme)) {
+                 return;
+             }
++            GodSmithArmorScheme existing = table[itemType];
++            // These vanilla variants share pieces and preserve their vanilla piece stats.
++            // Keep the primary mapping for helmet inheritance and index both set previews.
++            if (!existing.OverridesPieceStats && !scheme.OverridesPieceStats &&
++                ((existing is GsBeetleScaleArmor && scheme is GsBeetleShellArmor) ||
++                 (existing is GsBeetleShellArmor && scheme is GsBeetleScaleArmor) ||
++                 (existing is GsSpectreArmorScheme && scheme is GsSpectreArmorScheme))) {
++                if (ReferenceEquals(table, GodSmithArmorScheme.SchemeByPiece)) {
++                    if (!SharedPieceSchemes.TryGetValue(itemType, out var variants)) {
++                        SharedPieceSchemes[itemType] = variants = [existing];
++                    }
++                    variants.Add(scheme);
++                }
++                return;
++            }
+             CWRMod.Instance.Logger.Error(
+                 $"[GodSmith] 盔甲单件 {itemType} 被重复接管：{table[itemType].FullName} 与 {scheme.FullName}，前者生效");
+         }
+@@ -55,6 +74,7 @@ namespace CalamityOverhaul.Content.GameModes.GodSmith.Framework
+             GodSmithArmorScheme.SchemesByBody = [];
+             GodSmithArmorScheme.SchemeByHead = [];
+             GodSmithArmorScheme.SchemeByPiece = [];
++            SharedPieceSchemes.Clear();
+             GodSmithScheme.ClearRegistry();
+             GodSmithProjRouter.ClearRegistry();
+         }
+diff --git a/Content/HackTimes/Targets/SelfRigTargetType.cs b/Content/HackTimes/Targets/SelfRigTargetType.cs
+index 6e4bcd7..156be23 100644
+--- a/Content/HackTimes/Targets/SelfRigTargetType.cs
++++ b/Content/HackTimes/Targets/SelfRigTargetType.cs
+@@ -14,7 +14,9 @@ namespace CalamityOverhaul.Content.HackTimes.Targets
+     {
+         public override HackTargetKind Kind => HackTargetKind.SelfRig;
+ 
+-        public override int HoverPriority => -100;
++        // Prefer an explicit hit on the player over sky and overlapping projectiles.
++        // NPCs, boss parts and other players keep their higher priority.
++        public override int HoverPriority => 70;
+ 
+         public override IHackTarget TryDetectHovered(Vector2 mouseWorld) {
+             //悬停探测只跑在本机（HackTimeTargeting 已按 myPlayer 闸），
+diff --git a/Localization/de-DE/Mods.CalamityOverhaul.Items.hjson b/Localization/de-DE/Mods.CalamityOverhaul.Items.hjson
+index 8cfa5df..dc44056 100644
+--- a/Localization/de-DE/Mods.CalamityOverhaul.Items.hjson
++++ b/Localization/de-DE/Mods.CalamityOverhaul.Items.hjson
+@@ -501,3 +501,23 @@ BloomCaller: {
+ 		"Der Ton ist kein Befehl. Er ist Gießen"
+ 		'''
+ }
++
++SakuraDashTest: {
++	// DisplayName: Sakura Dash Test
++	// Tooltip: ""
++}
++
++SakuraKiriTest: {
++	// DisplayName: Sakura Kiri Test
++	// Tooltip: ""
++}
++
++SakuraReadyStanceTest: {
++	// DisplayName: Sakura Ready Stance Test
++	// Tooltip: ""
++}
++
++SakuraSlashTest: {
++	// DisplayName: Sakura Slash Test
++	// Tooltip: ""
++}
+diff --git a/Localization/de-DE/Mods.CalamityOverhaul.NPCs.hjson b/Localization/de-DE/Mods.CalamityOverhaul.NPCs.hjson
+index 41ffe8c..df402eb 100644
+--- a/Localization/de-DE/Mods.CalamityOverhaul.NPCs.hjson
++++ b/Localization/de-DE/Mods.CalamityOverhaul.NPCs.hjson
+@@ -22,6 +22,8 @@ Victor: {
+ 		LikeNPC_Princess: Wer könnte {NPCName} schon hassen? Außerdem ist ihre Knochenstruktur höchst interessant für die Forschung
+ 		Princess_LovesNPC: Ich mag {NPCName} am liebsten! Er flickt alle immer wieder ganz zusammen!
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ TBUG: {
+@@ -48,6 +50,8 @@ TBUG: {
+ 		LikeNPC_Princess: "{NPCName} … na gut. Niemand schafft es, sie zu hassen, und das allein ist verdächtig"
+ 		Princess_LovesNPC: Ich mag {NPCName} am liebsten! Sie weiß so viel, das sonst niemand weiß!
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ ScrapCommander: {
+diff --git a/Localization/de-DE/Mods.CalamityOverhaul.Projectiles.hjson b/Localization/de-DE/Mods.CalamityOverhaul.Projectiles.hjson
+index 5b109a5..5769c01 100644
+--- a/Localization/de-DE/Mods.CalamityOverhaul.Projectiles.hjson
++++ b/Localization/de-DE/Mods.CalamityOverhaul.Projectiles.hjson
+@@ -1278,3 +1278,9 @@ GsGunHoldPoseProj.DisplayName: Gottesschmied-Gewehrhaltung
+ // EmpressMoonShard.DisplayName: Empress Moon Shard
+ // EmpressWhipCrack.DisplayName: Empress Whip Crack
+ // EmpressRepelRing.DisplayName: Empress Repel Ring
++// SakuraDashProj.DisplayName: Sakura Dash Proj
++// SakuraKiriPlayerProj.DisplayName: Sakura Kiri Player Proj
++// SakuraRangedSlashProj.DisplayName: Sakura Ranged Slash Proj
++// SakuraReadyStanceProj.DisplayName: Sakura Ready Stance Proj
++// SakuraSlash2Proj.DisplayName: Sakura Slash2 Proj
++// SakuraSlashProj.DisplayName: Sakura Slash Proj
+diff --git a/Localization/en-US/Mods.CalamityOverhaul.Items.hjson b/Localization/en-US/Mods.CalamityOverhaul.Items.hjson
+index 31e3123..b98d56b 100644
+--- a/Localization/en-US/Mods.CalamityOverhaul.Items.hjson
++++ b/Localization/en-US/Mods.CalamityOverhaul.Items.hjson
+@@ -541,3 +541,23 @@ BloomCaller: {
+ 		"The horn does not command. It waters"
+ 		'''
+ }
++
++SakuraDashTest: {
++	DisplayName: Sakura Dash Test
++	Tooltip: ""
++}
++
++SakuraKiriTest: {
++	DisplayName: Sakura Kiri Test
++	Tooltip: ""
++}
++
++SakuraReadyStanceTest: {
++	DisplayName: Sakura Ready Stance Test
++	Tooltip: ""
++}
++
++SakuraSlashTest: {
++	DisplayName: Sakura Slash Test
++	Tooltip: ""
++}
+diff --git a/Localization/en-US/Mods.CalamityOverhaul.NPCs.hjson b/Localization/en-US/Mods.CalamityOverhaul.NPCs.hjson
+index 2c6d902..2b3be67 100644
+--- a/Localization/en-US/Mods.CalamityOverhaul.NPCs.hjson
++++ b/Localization/en-US/Mods.CalamityOverhaul.NPCs.hjson
+@@ -22,6 +22,8 @@ Victor: {
+ 		LikeNPC_Princess: Who could hate {NPCName}? Besides, her bone structure is of considerable research value.
+ 		Princess_LovesNPC: I love {NPCName}! He always puts everyone back together good as new!
+ 	}
++
++	Census.SpawnCondition: Conditions unknown
+ }
+ 
+ TBUG: {
+@@ -48,6 +50,8 @@ TBUG: {
+ 		LikeNPC_Princess: "{NPCName}? Fine. Nobody manages to hate her, which is suspicious in itself."
+ 		Princess_LovesNPC: I love {NPCName}! She knows so many things nobody else does!
+ 	}
++
++	Census.SpawnCondition: Conditions unknown
+ }
+ 
+ ScrapCommander: {
+diff --git a/Localization/en-US/Mods.CalamityOverhaul.Projectiles.hjson b/Localization/en-US/Mods.CalamityOverhaul.Projectiles.hjson
+index 23364a6..6e851de 100644
+--- a/Localization/en-US/Mods.CalamityOverhaul.Projectiles.hjson
++++ b/Localization/en-US/Mods.CalamityOverhaul.Projectiles.hjson
+@@ -1278,3 +1278,9 @@ EmpressLacewing.DisplayName: Empress Lacewing
+ EmpressMoonShard.DisplayName: Empress Moon Shard
+ EmpressWhipCrack.DisplayName: Empress Whip Crack
+ EmpressRepelRing.DisplayName: Empress Repel Ring
++SakuraDashProj.DisplayName: Sakura Dash Proj
++SakuraKiriPlayerProj.DisplayName: Sakura Kiri Player Proj
++SakuraRangedSlashProj.DisplayName: Sakura Ranged Slash Proj
++SakuraReadyStanceProj.DisplayName: Sakura Ready Stance Proj
++SakuraSlash2Proj.DisplayName: Sakura Slash2 Proj
++SakuraSlashProj.DisplayName: Sakura Slash Proj
+diff --git a/Localization/es-ES/Mods.CalamityOverhaul.Items.hjson b/Localization/es-ES/Mods.CalamityOverhaul.Items.hjson
+index 3986147..2078671 100644
+--- a/Localization/es-ES/Mods.CalamityOverhaul.Items.hjson
++++ b/Localization/es-ES/Mods.CalamityOverhaul.Items.hjson
+@@ -502,3 +502,23 @@ BloomCaller: {
+ 		"El cuerno no es una orden; es riego"
+ 		'''
+ }
++
++SakuraDashTest: {
++	// DisplayName: Sakura Dash Test
++	// Tooltip: ""
++}
++
++SakuraKiriTest: {
++	// DisplayName: Sakura Kiri Test
++	// Tooltip: ""
++}
++
++SakuraReadyStanceTest: {
++	// DisplayName: Sakura Ready Stance Test
++	// Tooltip: ""
++}
++
++SakuraSlashTest: {
++	// DisplayName: Sakura Slash Test
++	// Tooltip: ""
++}
+diff --git a/Localization/es-ES/Mods.CalamityOverhaul.NPCs.hjson b/Localization/es-ES/Mods.CalamityOverhaul.NPCs.hjson
+index b4fbd11..679a800 100644
+--- a/Localization/es-ES/Mods.CalamityOverhaul.NPCs.hjson
++++ b/Localization/es-ES/Mods.CalamityOverhaul.NPCs.hjson
+@@ -22,6 +22,8 @@ Victor: {
+ 		LikeNPC_Princess: ¿Quién podría odiar a {NPCName}? Además, su estructura ósea tiene un gran valor de estudio
+ 		Princess_LovesNPC: ¡{NPCName} es mi favorito! ¡Siempre deja a todos como nuevos!
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ TBUG: {
+@@ -48,6 +50,8 @@ TBUG: {
+ 		LikeNPC_Princess: "{NPCName}… está bien. Nadie consigue odiarla, y eso ya es sospechoso"
+ 		Princess_LovesNPC: ¡{NPCName} es mi favorita! ¡Sabe tantas cosas que nadie más conoce!
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ ScrapCommander: {
+diff --git a/Localization/es-ES/Mods.CalamityOverhaul.Projectiles.hjson b/Localization/es-ES/Mods.CalamityOverhaul.Projectiles.hjson
+index 385e3d3..160b802 100644
+--- a/Localization/es-ES/Mods.CalamityOverhaul.Projectiles.hjson
++++ b/Localization/es-ES/Mods.CalamityOverhaul.Projectiles.hjson
+@@ -1278,3 +1278,9 @@ SoulbindingCounterFlame.DisplayName: Llama de contraataque de atadura de almas
+ // EmpressMoonShard.DisplayName: Empress Moon Shard
+ // EmpressWhipCrack.DisplayName: Empress Whip Crack
+ // EmpressRepelRing.DisplayName: Empress Repel Ring
++// SakuraDashProj.DisplayName: Sakura Dash Proj
++// SakuraKiriPlayerProj.DisplayName: Sakura Kiri Player Proj
++// SakuraRangedSlashProj.DisplayName: Sakura Ranged Slash Proj
++// SakuraReadyStanceProj.DisplayName: Sakura Ready Stance Proj
++// SakuraSlash2Proj.DisplayName: Sakura Slash2 Proj
++// SakuraSlashProj.DisplayName: Sakura Slash Proj
+diff --git a/Localization/fr-FR/Mods.CalamityOverhaul.Items.hjson b/Localization/fr-FR/Mods.CalamityOverhaul.Items.hjson
+index 5b1a7c5..466c7ac 100644
+--- a/Localization/fr-FR/Mods.CalamityOverhaul.Items.hjson
++++ b/Localization/fr-FR/Mods.CalamityOverhaul.Items.hjson
+@@ -502,3 +502,23 @@ BloomCaller: {
+ 		"Le cor n'est pas un ordre, c'est un arrosage"
+ 		'''
+ }
++
++SakuraDashTest: {
++	// DisplayName: Sakura Dash Test
++	// Tooltip: ""
++}
++
++SakuraKiriTest: {
++	// DisplayName: Sakura Kiri Test
++	// Tooltip: ""
++}
++
++SakuraReadyStanceTest: {
++	// DisplayName: Sakura Ready Stance Test
++	// Tooltip: ""
++}
++
++SakuraSlashTest: {
++	// DisplayName: Sakura Slash Test
++	// Tooltip: ""
++}
+diff --git a/Localization/fr-FR/Mods.CalamityOverhaul.NPCs.hjson b/Localization/fr-FR/Mods.CalamityOverhaul.NPCs.hjson
+index 6759234..90027dd 100644
+--- a/Localization/fr-FR/Mods.CalamityOverhaul.NPCs.hjson
++++ b/Localization/fr-FR/Mods.CalamityOverhaul.NPCs.hjson
+@@ -22,6 +22,8 @@ Victor: {
+ 		LikeNPC_Princess: J'aime {NPCName}.
+ 		Princess_LovesNPC: J'aime {NPCName}.
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ TBUG: {
+@@ -48,6 +50,8 @@ TBUG: {
+ 		LikeNPC_Princess: "{NPCName}... bon. Personne n'arrive à la détester, et ça, c'est déjà suspect"
+ 		Princess_LovesNPC: J'adore {NPCName} ! Elle sait plein de choses que personne d'autre ne sait !
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ ScrapCommander: {
+diff --git a/Localization/fr-FR/Mods.CalamityOverhaul.Projectiles.hjson b/Localization/fr-FR/Mods.CalamityOverhaul.Projectiles.hjson
+index cf1e601..7a3fccb 100644
+--- a/Localization/fr-FR/Mods.CalamityOverhaul.Projectiles.hjson
++++ b/Localization/fr-FR/Mods.CalamityOverhaul.Projectiles.hjson
+@@ -1278,3 +1278,9 @@ SoulbindingCounterFlame.DisplayName: Flamme de contre de l'âme liée
+ // EmpressMoonShard.DisplayName: Empress Moon Shard
+ // EmpressWhipCrack.DisplayName: Empress Whip Crack
+ // EmpressRepelRing.DisplayName: Empress Repel Ring
++// SakuraDashProj.DisplayName: Sakura Dash Proj
++// SakuraKiriPlayerProj.DisplayName: Sakura Kiri Player Proj
++// SakuraRangedSlashProj.DisplayName: Sakura Ranged Slash Proj
++// SakuraReadyStanceProj.DisplayName: Sakura Ready Stance Proj
++// SakuraSlash2Proj.DisplayName: Sakura Slash2 Proj
++// SakuraSlashProj.DisplayName: Sakura Slash Proj
+diff --git a/Localization/pt-BR/Mods.CalamityOverhaul.Items.hjson b/Localization/pt-BR/Mods.CalamityOverhaul.Items.hjson
+index 73ea57b..6b4acc4 100644
+--- a/Localization/pt-BR/Mods.CalamityOverhaul.Items.hjson
++++ b/Localization/pt-BR/Mods.CalamityOverhaul.Items.hjson
+@@ -541,3 +541,23 @@ BloomCaller: {
+ 		"The horn does not command. It waters"
+ 		''' */
+ }
++
++SakuraDashTest: {
++	// DisplayName: Sakura Dash Test
++	// Tooltip: ""
++}
++
++SakuraKiriTest: {
++	// DisplayName: Sakura Kiri Test
++	// Tooltip: ""
++}
++
++SakuraReadyStanceTest: {
++	// DisplayName: Sakura Ready Stance Test
++	// Tooltip: ""
++}
++
++SakuraSlashTest: {
++	// DisplayName: Sakura Slash Test
++	// Tooltip: ""
++}
+diff --git a/Localization/pt-BR/Mods.CalamityOverhaul.NPCs.hjson b/Localization/pt-BR/Mods.CalamityOverhaul.NPCs.hjson
+index 5f8baaf..1414f5a 100644
+--- a/Localization/pt-BR/Mods.CalamityOverhaul.NPCs.hjson
++++ b/Localization/pt-BR/Mods.CalamityOverhaul.NPCs.hjson
+@@ -22,6 +22,8 @@ Victor: {
+ 		LikeNPC_Princess: Eu gosto de {NPCName}.
+ 		Princess_LovesNPC: Eu gosto de {NPCName}.
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ TBUG: {
+@@ -48,6 +50,8 @@ TBUG: {
+ 		// LikeNPC_Princess: "{NPCName}? Fine. Nobody manages to hate her, which is suspicious in itself."
+ 		// Princess_LovesNPC: I love {NPCName}! She knows so many things nobody else does!
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ ScrapCommander: {
+diff --git a/Localization/pt-BR/Mods.CalamityOverhaul.Projectiles.hjson b/Localization/pt-BR/Mods.CalamityOverhaul.Projectiles.hjson
+index 590f839..89c10c8 100644
+--- a/Localization/pt-BR/Mods.CalamityOverhaul.Projectiles.hjson
++++ b/Localization/pt-BR/Mods.CalamityOverhaul.Projectiles.hjson
+@@ -1278,3 +1278,9 @@ ScapegoatDollWalker.DisplayName: Espantalho substituto
+ // EmpressMoonShard.DisplayName: Empress Moon Shard
+ // EmpressWhipCrack.DisplayName: Empress Whip Crack
+ // EmpressRepelRing.DisplayName: Empress Repel Ring
++// SakuraDashProj.DisplayName: Sakura Dash Proj
++// SakuraKiriPlayerProj.DisplayName: Sakura Kiri Player Proj
++// SakuraRangedSlashProj.DisplayName: Sakura Ranged Slash Proj
++// SakuraReadyStanceProj.DisplayName: Sakura Ready Stance Proj
++// SakuraSlash2Proj.DisplayName: Sakura Slash2 Proj
++// SakuraSlashProj.DisplayName: Sakura Slash Proj
+diff --git a/Localization/ru-RU/Mods.CalamityOverhaul.Items.hjson b/Localization/ru-RU/Mods.CalamityOverhaul.Items.hjson
+index 2432efc..8b9fd68 100644
+--- a/Localization/ru-RU/Mods.CalamityOverhaul.Items.hjson
++++ b/Localization/ru-RU/Mods.CalamityOverhaul.Items.hjson
+@@ -502,3 +502,23 @@ BloomCaller: {
+ 		"Зов рога — не приказ, а полив"
+ 		'''
+ }
++
++SakuraDashTest: {
++	// DisplayName: Sakura Dash Test
++	// Tooltip: ""
++}
++
++SakuraKiriTest: {
++	// DisplayName: Sakura Kiri Test
++	// Tooltip: ""
++}
++
++SakuraReadyStanceTest: {
++	// DisplayName: Sakura Ready Stance Test
++	// Tooltip: ""
++}
++
++SakuraSlashTest: {
++	// DisplayName: Sakura Slash Test
++	// Tooltip: ""
++}
+diff --git a/Localization/ru-RU/Mods.CalamityOverhaul.NPCs.hjson b/Localization/ru-RU/Mods.CalamityOverhaul.NPCs.hjson
+index 7074034..01da707 100644
+--- a/Localization/ru-RU/Mods.CalamityOverhaul.NPCs.hjson
++++ b/Localization/ru-RU/Mods.CalamityOverhaul.NPCs.hjson
+@@ -22,6 +22,8 @@ Victor: {
+ 		LikeNPC_Princess: Кто станет ненавидеть {NPCName}? К тому же её скелет очень любопытен для изучения
+ 		Princess_LovesNPC: Я больше всех люблю {NPCName}! Он всегда чинит всех как новеньких!
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ TBUG: {
+@@ -48,6 +50,8 @@ TBUG: {
+ 		LikeNPC_Princess: "{NPCName}... ладно, её невозможно ненавидеть, и само по себе это подозрительно"
+ 		Princess_LovesNPC: Я больше всех люблю {NPCName}! Она знает столько всего, чего другие не знают!
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ ScrapCommander: {
+diff --git a/Localization/ru-RU/Mods.CalamityOverhaul.Projectiles.hjson b/Localization/ru-RU/Mods.CalamityOverhaul.Projectiles.hjson
+index 158c675..a50260d 100644
+--- a/Localization/ru-RU/Mods.CalamityOverhaul.Projectiles.hjson
++++ b/Localization/ru-RU/Mods.CalamityOverhaul.Projectiles.hjson
+@@ -1278,3 +1278,9 @@ SoulbindingCounterFlame.DisplayName: Контрударное пламя свя
+ // EmpressMoonShard.DisplayName: Empress Moon Shard
+ // EmpressWhipCrack.DisplayName: Empress Whip Crack
+ // EmpressRepelRing.DisplayName: Empress Repel Ring
++// SakuraDashProj.DisplayName: Sakura Dash Proj
++// SakuraKiriPlayerProj.DisplayName: Sakura Kiri Player Proj
++// SakuraRangedSlashProj.DisplayName: Sakura Ranged Slash Proj
++// SakuraReadyStanceProj.DisplayName: Sakura Ready Stance Proj
++// SakuraSlash2Proj.DisplayName: Sakura Slash2 Proj
++// SakuraSlashProj.DisplayName: Sakura Slash Proj
+diff --git a/Localization/zh-Hans/Mods.CalamityOverhaul.Items.hjson b/Localization/zh-Hans/Mods.CalamityOverhaul.Items.hjson
+index 90d7b4e..607fb88 100644
+--- a/Localization/zh-Hans/Mods.CalamityOverhaul.Items.hjson
++++ b/Localization/zh-Hans/Mods.CalamityOverhaul.Items.hjson
+@@ -500,3 +500,23 @@ BloomCaller: {
+ 		"号声不是命令，是浇水"
+ 		'''
+ }
++
++SakuraDashTest: {
++	// DisplayName: Sakura Dash Test
++	// Tooltip: ""
++}
++
++SakuraKiriTest: {
++	// DisplayName: Sakura Kiri Test
++	// Tooltip: ""
++}
++
++SakuraReadyStanceTest: {
++	// DisplayName: Sakura Ready Stance Test
++	// Tooltip: ""
++}
++
++SakuraSlashTest: {
++	// DisplayName: Sakura Slash Test
++	// Tooltip: ""
++}
+diff --git a/Localization/zh-Hans/Mods.CalamityOverhaul.NPCs.hjson b/Localization/zh-Hans/Mods.CalamityOverhaul.NPCs.hjson
+index 0b81402..482fda4 100644
+--- a/Localization/zh-Hans/Mods.CalamityOverhaul.NPCs.hjson
++++ b/Localization/zh-Hans/Mods.CalamityOverhaul.NPCs.hjson
+@@ -22,6 +22,8 @@ Victor: {
+ 		LikeNPC_Princess: 谁能讨厌{NPCName}呢？再说她的骨骼结构很有研究价值
+ 		Princess_LovesNPC: 我最喜欢{NPCName}了！他总能把大家修得好好的！
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ TBUG: {
+@@ -48,6 +50,8 @@ TBUG: {
+ 		LikeNPC_Princess: "{NPCName}嘛……行吧，没人讨厌得起来，这本身就很可疑"
+ 		Princess_LovesNPC: 我最喜欢{NPCName}了！她知道好多别人都不知道的事！
+ 	}
++
++	// Census.SpawnCondition: Conditions unknown
+ }
+ 
+ ScrapCommander: {
+diff --git a/Localization/zh-Hans/Mods.CalamityOverhaul.Projectiles.hjson b/Localization/zh-Hans/Mods.CalamityOverhaul.Projectiles.hjson
+index 3b9d451..00517f2 100644
+--- a/Localization/zh-Hans/Mods.CalamityOverhaul.Projectiles.hjson
++++ b/Localization/zh-Hans/Mods.CalamityOverhaul.Projectiles.hjson
+@@ -1278,3 +1278,9 @@ SoulbindingCounterFlame.DisplayName: 缚魂反击烈焰
+ // EmpressMoonShard.DisplayName: Empress Moon Shard
+ // EmpressWhipCrack.DisplayName: Empress Whip Crack
+ // EmpressRepelRing.DisplayName: Empress Repel Ring
++// SakuraDashProj.DisplayName: Sakura Dash Proj
++// SakuraKiriPlayerProj.DisplayName: Sakura Kiri Player Proj
++// SakuraRangedSlashProj.DisplayName: Sakura Ranged Slash Proj
++// SakuraReadyStanceProj.DisplayName: Sakura Ready Stance Proj
++// SakuraSlash2Proj.DisplayName: Sakura Slash2 Proj
++// SakuraSlashProj.DisplayName: Sakura Slash Proj
+diff --git a/build.txt b/build.txt
+index e953b72..a28e5b4 100644
+--- a/build.txt
++++ b/build.txt
+@@ -1,9 +1,9 @@
+-﻿displayName = Calamity Overhaul
++displayName = Calamity Overhaul
+ modReferences = InnoVault@1.9.101, SubworldLibrary
+ weakReferences = CalamityMod, MagicStorage
+ sortAfter = CalamityMod, InnoVault
+ homepage = https://calamity-overhaul.cc
+ buildIgnore = .git\*, Doc\*, .vissandbox\*, .editorconfig, .gitignore, *.ps1
+ author = HoCha113
+-version = 0.9209
+-includeSource = true
+\ No newline at end of file
++version = 0.9209.2
++includeSource = true

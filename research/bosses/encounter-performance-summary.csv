@@ -1,0 +1,38 @@
+﻿profile,phase,seconds,meanFPS,minimumOneSecondFPS,worstBatchP99FrameMs,meanSimulationTPS,maxNPCs,maxProjectiles,width,height,zoom,invalidRows,deathStateRecorded,passed120InMeasuredWindows,authoritativeServerTPS
+HighFPS fixed 240 / D3D11,highfps-idle,31.37,40.49,36.97,62.41,59.94,12,19,1920,1080,0.85,0,False,False,
+HighFPS fixed 240 / D3D11,eye-full,26.35,36.93,28.71,152.46,59.32,13,47,1920,1080,0.85,0,False,False,
+HighFPS fixed 240 / D3D11,eye-low,26.39,41.76,38.35,62.62,59.98,16,29,1920,1080,0.85,0,False,False,
+HighFPS fixed 240 / D3D11,destroyer,31.46,27.66,24.63,87.16,59.45,72,42,1920,1080,0.85,0,False,False,
+HighFPS fixed 240 / D3D11,yharon-full,36.83,26.48,18.79,65.83,58.22,9,320,1920,1080,0.85,0,False,False,
+HighFPS fixed 240 / D3D11,yharon-low,36.79,30.72,17.47,67.57,57.0,8,447,1920,1080,0.85,0,False,False,
+HighFPS fixed 240 / D3D11,dog,36.49,41.0,23.46,71.29,59.88,7,87,1920,1080,0.85,0,False,False,
+HighFPS fixed 240 / D3D11,mutant,36.62,34.92,19.31,61.12,59.64,6,263,1920,1080,0.85,0,False,False,
+Overperformance original / D3D11,over-idle-original-render,26.39,29.94,27.55,107.14,59.95,14,20,1920,1080,0.85,0,True,False,
+Overperformance original / D3D11,over-idle-cached,26.52,30.88,28.74,49.09,59.99,12,21,1920,1080,0.85,0,True,False,
+Overperformance original / D3D11,over-destroyer-original,31.86,15.76,13.0,97.91,57.82,93,49,1920,1080,0.85,0,True,False,
+Overperformance original / D3D11,over-destroyer-cached,31.87,15.25,12.59,150.81,56.97,105,42,1920,1080,0.85,0,True,False,
+Overperformance original / D3D11,over-yharon-cached,36.57,26.33,19.92,72.4,59.97,5,207,1920,1080,0.85,0,True,False,
+Overperformance original / D3D11,over-dog-cached,24.5,28.89,18.96,85.71,59.95,7,110,1920,1080,0.85,12,True,False,
+Overperformance original / D3D11,over-mutant-cached,36.9,20.35,11.16,107.89,56.72,5,694,1920,1080,0.85,0,True,False,
+Overperformance patched / Vulkan,over-idle-original-render,26.36,34.64,29.99,56.79,59.98,14,22,1920,1080,0.85,0,True,False,
+Overperformance patched / Vulkan,over-idle-cached,26.32,35.63,29.56,53.95,59.99,13,21,1920,1080,0.85,0,True,False,
+Overperformance patched / Vulkan,over-destroyer-original,31.95,14.49,13.3,100.28,56.62,91,34,1920,1080,0.85,0,True,False,
+Overperformance patched / Vulkan,over-destroyer-cached,31.21,14.71,12.3,94.58,55.73,104,56,1920,1080,0.85,0,True,False,
+Overperformance patched / Vulkan,over-yharon-cached,36.56,31.24,19.04,81.2,59.96,5,226,1920,1080,0.85,0,True,False,
+Overperformance patched / Vulkan,over-dog-cached,36.55,35.85,20.38,91.16,59.95,6,111,1920,1080,0.85,0,True,False,
+Overperformance patched / Vulkan,over-mutant-cached,36.62,28.95,18.47,80.69,59.91,4,214,1920,1080,0.85,0,True,False,
+HighFPS uncapped / MP / reduced graphics,mp-low-idle85,25.16,64.66,59.85,64.17,59.74,12,6,1280,720,0.85,0,True,False,
+HighFPS uncapped / MP / reduced graphics,mp-low-idle125,26.21,69.48,66.1,24.77,59.98,12,10,1280,720,1.25,0,True,False,
+HighFPS uncapped / MP / reduced graphics,mp-low-eye,26.19,63.45,51.15,61.09,59.14,15,11,1280,720,1.25,0,True,False,
+HighFPS uncapped / MP / reduced graphics,mp-low-destroyer,31.32,53.35,49.32,57.57,53.32,75,16,1280,720,1.25,0,True,False,
+HighFPS uncapped / MP / reduced graphics,mp-low-yharon,36.29,66.6,57.89,30.66,59.63,8,173,1280,720,1.25,0,True,False,
+HighFPS uncapped / MP / reduced graphics,mp-low-dog,36.25,65.05,51.0,54.19,59.06,10,152,1280,720,1.25,0,True,False,
+HighFPS uncapped / MP / reduced graphics,mp-low-mutant,36.36,55.75,39.23,33.73,53.69,11,469,1280,720,1.25,0,True,False,
+Entropy history A-B / MP / reduced graphics,history-off-idle,25.21,75.05,65.63,58.23,59.85,13,7,1280,720,1.25,0,True,False,60.0
+Entropy history A-B / MP / reduced graphics,history-on-idle,26.18,76.07,67.82,23.8,59.96,12,9,1280,720,1.25,0,True,False,59.98
+Entropy history A-B / MP / reduced graphics,history-off-destroyer,31.33,52.8,46.29,55.96,52.77,105,24,1280,720,1.25,0,True,False,59.94
+Entropy history A-B / MP / reduced graphics,history-on-destroyer,31.32,57.66,53.67,54.92,57.41,89,19,1280,720,1.25,0,True,False,60.01
+Entropy history A-B / MP / reduced graphics,history-off-yharon,36.31,70.92,59.71,27.83,59.96,7,194,1280,720,1.25,0,True,False,60.02
+Entropy history A-B / MP / reduced graphics,history-on-yharon,36.29,71.89,58.92,25.27,59.9,7,206,1280,720,1.25,0,True,False,59.96
+Entropy history A-B / MP / reduced graphics,history-off-mutant,36.29,58.28,47.57,50.79,56.3,5,274,1280,720,1.25,0,True,False,59.88
+Entropy history A-B / MP / reduced graphics,history-on-mutant,36.29,64.69,49.53,30.16,58.16,5,175,1280,720,1.25,0,True,False,59.92

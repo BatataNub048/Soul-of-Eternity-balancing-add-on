@@ -1,0 +1,130 @@
+diff --git a/Localization/en-US_Mods.Munchies_CalamityAddon.hjson b/Localization/en-US_Mods.Munchies_CalamityAddon.hjson
+index 84960c1..0704d1e 100644
+--- a/Localization/en-US_Mods.Munchies_CalamityAddon.hjson
++++ b/Localization/en-US_Mods.Munchies_CalamityAddon.hjson
+@@ -1,8 +1,8 @@
+ Acquisition: {
+-	BloodOrange: Combine 10 Blood Orb and 5 each of Life Fruit and Soul of Might, Sight, & Fright
+-	MiracleFruit: Combine 12 Living Shard and 5 each of Life Fruit, Trapper Bulb, amd Life Alloy
+-	Elderberry: Combine 5 Life Fruit, 10 each of Uelibloom Bar and Divine Geode, and 20 Unholy Essence
+-	Dragonfruit: Combine 5 each of Life Fruit and Yharon Soul Fragment, 15 Solar Fragment, and 1 Ascendent Spirit Essence
++	SanguineTangerine: Check the current recipe in Recipe Browser or with the Guide.
++	MiracleFruit: Check the current recipe in Recipe Browser or with the Guide.
++	TaintedCloudberry: Check the current recipe in Recipe Browser or with the Guide.
++	SacredStrawberry: Check the current recipe in Recipe Browser or with the Guide.
+ 	EnchantedStarfish: 10% chance to fish up in the Surface at night
+ 	CometShard: Combine 10 each Meteorite Bar and Fallen Star and 50 Starblight Soot
+ 	EtherealCore: Combine 20 each Nebula Fragment Fallen Star and 25 Astral Bar
+diff --git a/Munchies_CalamityAddon.cs b/Munchies_CalamityAddon.cs
+index fba8d7b..3133eb1 100644
+--- a/Munchies_CalamityAddon.cs
++++ b/Munchies_CalamityAddon.cs
+@@ -12,10 +12,10 @@ namespace Munchies_CalamityAddon {
+ 		internal Mod MunchiesMod;
+ 		internal Mod CalamityMod;
+ 
+-		private LocalizedText BloodOrangeText;
++		private LocalizedText SanguineTangerineText;
+ 		private LocalizedText MiracleFruitText;
+-		private LocalizedText ElderberryText;
+-		private LocalizedText DragonfruitText;
++		private LocalizedText TaintedCloudberryText;
++		private LocalizedText SacredStrawberryText;
+ 		private LocalizedText EnchantedStarfishText;
+ 		private LocalizedText CometShardText;
+ 		private LocalizedText EtherealCoreText;
+@@ -31,10 +31,10 @@ namespace Munchies_CalamityAddon {
+ 		public override void Load() {
+ 			instance = this;
+ 
+-			BloodOrangeText = this.GetLocalization("Acquisition.BloodOrange");
++			SanguineTangerineText = this.GetLocalization("Acquisition.SanguineTangerine");
+ 			MiracleFruitText = this.GetLocalization("Acquisition.MiracleFruit");
+-			ElderberryText = this.GetLocalization("Acquisition.Elderberry");
+-			DragonfruitText = this.GetLocalization("Acquisition.Dragonfruit");
++			TaintedCloudberryText = this.GetLocalization("Acquisition.TaintedCloudberry");
++			SacredStrawberryText = this.GetLocalization("Acquisition.SacredStrawberry");
+ 			EnchantedStarfishText = this.GetLocalization("Acquisition.EnchantedStarfish");
+ 			CometShardText = this.GetLocalization("Acquisition.CometShard");
+ 			EtherealCoreText = this.GetLocalization("Acquisition.EtherealCore");
+@@ -66,46 +66,48 @@ namespace Munchies_CalamityAddon {
+ 				} else {
+ 					Logger.Error("Error: couldn't find the Munchies mod or the Calamity mod");
+ 				}
+-			} catch {
+-				Logger.Error($"PostSetupContent Error in Munchies Calamity Addon");
++			} catch (Exception ex) {
++				Logger.Error("PostSetupContent Error in Munchies Calamity Addon", ex);
+ 			}
+ 		}
+ 
+ 		private void AddCalamityConsumables_Health() {
+ 			if (CalamityMod == null) return;
+-			CallMunchiesModConsumable(GetModItem("BloodOrange"), () => Main.LocalPlayer.Calamity().bOrange, BloodOrangeText);
+-			CallMunchiesModConsumable(GetModItem("MiracleFruit"), () => Main.LocalPlayer.Calamity().mFruit, MiracleFruitText);
+-			CallMunchiesModConsumable(GetModItem("Elderberry"), () => Main.LocalPlayer.Calamity().eBerry, ElderberryText);
+-			CallMunchiesModConsumable(GetModItem("Dragonfruit"), () => Main.LocalPlayer.Calamity().dFruit, DragonfruitText);
++			CallMunchiesModConsumable(GetModItem("SanguineTangerine"), () => HasPowerup("SanguineTangerine"), SanguineTangerineText);
++			CallMunchiesModConsumable(GetModItem("MiracleFruit"), () => HasPowerup("MiracleFruit"), MiracleFruitText);
++			CallMunchiesModConsumable(GetModItem("TaintedCloudberry"), () => HasPowerup("TaintedCloudberry"), TaintedCloudberryText);
++			CallMunchiesModConsumable(GetModItem("SacredStrawberry"), () => HasPowerup("SacredStrawberry"), SacredStrawberryText);
+ 		}
+ 
+ 		private void AddCalamityConsumables_Mana() {
+ 			if (CalamityMod == null) return;
+ 			CallMunchiesModMultiConsumable(GetModItem("EnchantedStarfish"), () => Main.LocalPlayer.ConsumedManaCrystals, () => 9, EnchantedStarfishText);
+-			CallMunchiesModConsumable(GetModItem("CometShard"), () => Main.LocalPlayer.Calamity().cShard, CometShardText);
+-			CallMunchiesModConsumable(GetModItem("EtherealCore"), () => Main.LocalPlayer.Calamity().eCore, EtherealCoreText);
+-			CallMunchiesModConsumable(GetModItem("PhantomHeart"), () => Main.LocalPlayer.Calamity().pHeart, PhantomHeartText);
++			CallMunchiesModConsumable(GetModItem("CometShard"), () => HasPowerup("CometShard"), CometShardText);
++			CallMunchiesModConsumable(GetModItem("EtherealCore"), () => HasPowerup("EtherealCore"), EtherealCoreText);
++			CallMunchiesModConsumable(GetModItem("PhantomHeart"), () => HasPowerup("PhantomHeart"), PhantomHeartText);
+ 		}
+ 
+ 		private void AddCalamityConsumables_RageMode() {
+ 			if (CalamityMod == null) return;
+-			CallMunchiesModConsumable(GetModItem("MushroomPlasmaRoot"), () => Main.LocalPlayer.Calamity().rageBoostOne, MushroomPlasmaRootText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().RageEnabled);
+-			CallMunchiesModConsumable(GetModItem("InfernalBlood"), () => Main.LocalPlayer.Calamity().rageBoostTwo, InfernalBloodText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().RageEnabled);
+-			CallMunchiesModConsumable(GetModItem("RedLightningContainer"), () => Main.LocalPlayer.Calamity().rageBoostThree, RedLightningContainerText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().RageEnabled);
++			CallMunchiesModConsumable(GetModItem("MushroomPlasmaRoot"), () => HasPowerup("MushroomPlasmaRoot"), MushroomPlasmaRootText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().RageEnabled);
++			CallMunchiesModConsumable(GetModItem("InfernalBlood"), () => HasPowerup("InfernalBlood"), InfernalBloodText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().RageEnabled);
++			CallMunchiesModConsumable(GetModItem("RedLightningContainer"), () => HasPowerup("RedLightningContainer"), RedLightningContainerText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().RageEnabled);
+ 		}
+ 
+ 		private void AddCalamityConsumables_AdrenalineMode() {
+ 			if (CalamityMod == null) return;
+-			CallMunchiesModConsumable(GetModItem("ElectrolyteGelPack"), () => Main.LocalPlayer.Calamity().adrenalineBoostOne, ElectrolyteGelPackText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().AdrenalineEnabled);
+-			CallMunchiesModConsumable(GetModItem("StarlightFuelCell"), () => Main.LocalPlayer.Calamity().adrenalineBoostTwo, StarlightFuelCellText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().AdrenalineEnabled);
+-			CallMunchiesModConsumable(GetModItem("Ectoheart"), () => Main.LocalPlayer.Calamity().adrenalineBoostThree, EctoheartText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().AdrenalineEnabled);
++			CallMunchiesModConsumable(GetModItem("ElectrolyteGelPack"), () => HasPowerup("ElectrolyteGelPack"), ElectrolyteGelPackText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().AdrenalineEnabled);
++			CallMunchiesModConsumable(GetModItem("StarlightFuelCell"), () => HasPowerup("StarlightFuelCell"), StarlightFuelCellText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().AdrenalineEnabled);
++			CallMunchiesModConsumable(GetModItem("Ectoheart"), () => HasPowerup("Ectoheart"), EctoheartText, Color.Red, "Revengeance", () => Main.LocalPlayer.Calamity().AdrenalineEnabled);
+ 		}
+ 
+ 		private void AddCalamityConsumables_Other() {
+ 			if (CalamityMod == null) return;
+-			CallMunchiesModConsumable(GetModItem("CelestialOnion"), () => Main.LocalPlayer.Calamity().extraAccessoryML, CelestialOnionText);
++			CallMunchiesModConsumable(GetModItem("CelestialOnion"), () => HasPowerup("CelestialOnion"), CelestialOnionText);
+ 		}
+ 
++		private bool HasPowerup(string name) => CalamityMod.Call("HasPermanentPowerup", Main.LocalPlayer, name) is true;
++
+ 		private ModItem GetModItem(string name) {
+ 			if (CalamityMod == null) return null;
+ 
+diff --git a/build.txt b/build.txt
+index f646274..9f12046 100644
+--- a/build.txt
++++ b/build.txt
+@@ -1,7 +1,7 @@
+ displayName = Munchies - Calamity Addon
+ author = Jboss
+-version = 1.3.1
++version = 1.3.1.1
+ side = Client
+-modReferences = Munchies@1.4,CalamityMod@2.0.4.3
++modReferences = Munchies@1.4,CalamityMod@2.2.4
+ buildIgnore = terraria_mod_border.xcf
+-homepage = "https://github.com/jbossjaslow/MunchiesCalamityAddon"
+\ No newline at end of file
++homepage = "https://github.com/jbossjaslow/MunchiesCalamityAddon"

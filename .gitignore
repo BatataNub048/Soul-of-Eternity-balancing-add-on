@@ -69,3 +69,28 @@ Desktop.ini
 *.key
 *credentials*
 *token*
+
+# Audited, non-campaign presets
+!/modpack/presets/ModConfigs/
+/modpack/presets/ModConfigs/*
+!/modpack/presets/ModConfigs/*.json
+
+# Local research, personal data and runtime artifacts
+**/Terraria-Local-Archive-20261118/
+**/Terraria-Rev8-Recovery-20261117/
+**/userdata/
+**/tModLoader-Logs/
+**/upstream-extracted/
+*.nbt
+*.map
+*.tmap
+*.wld.*
+*.twld.*
+*.plr.*
+*.tplr.*
+*.bak[0-9]
+*.nettrace
+*.etlx
+*.rawimg
+*.lnk
+serverconfig*.txt

@@ -1,0 +1,15 @@
+{
+  "DisplayWidth": 1920,
+  "DisplayHeight": 1080,
+  "Zoom": 0.85,
+  "AutoSave": true,
+  "Fullscreen": true,
+  "WindowBorderless": true,
+  "FrameSkipMode": 2,
+  "GraphicsQuality": 0,
+  "BackgroundEnabled": true,
+  "EarlyAutoUpdate": false,
+  "AvoidGithub": true,
+  "AvoidImgur": true,
+  "CloudSavingDefault": false
+}

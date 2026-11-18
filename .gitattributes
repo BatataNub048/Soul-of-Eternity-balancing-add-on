@@ -1,0 +1,3 @@
+# Preserve the audited lock hash and the original patch bytes.
+modpack/profiles/*.lock.json -text
+modpack/patches/*.patch -text -whitespace
