@@ -1,6 +1,6 @@
 # Phase 1.1A checkpoint
 
-**Completed the static first pass. The full encounter inventory and in-game Boss Checklist audit remain open.**
+**The static first pass and corrections are ready for focused independent re-review.**
 
 ## Evidence reviewed
 
@@ -12,12 +12,12 @@
 
 [Encounter inventory](encounters.csv) records **131 confirmed distinct encounters or event groups**. It also retains two separately registered Acid Rain tier rows, four candidates, four excluded helpers or dummies, and 44 pending catalogue records. Confirmed distinct rows break down as 66 Terraria, 34 Calamity, 14 Thorium, 16 Fargo’s Souls, and Echdeath from Fargo’s Souls Mod DLC Recreated. The [original evidence](../encounter-catalogue.json) remains byte-identical.
 
-The 131 rows include 96 confirmed source registrations, six conditional entries, 28 scoped standalone absences, and one unresolved registration. The primary coverage gaps are vanilla Dreadnautilus, Mothron and Goblin Warlock in the built-in register, and Primordial Wyrm in Calamity’s own register. Treat these as review leads until external registration and event associations are checked. Echdeath registration remains unresolved. Calamity and Fables Desert Scourge and Crabulon are possible overlaps. Worm segments, secondary forms, helpers and the Thorium boss dummy are grouped or excluded as described in [coverage](coverage.md).
+The original 131 rows include **94 declarations without an identified entry-specific availability predicate, 8 declarations with one, 28 scoped standalone absences and 1 unresolved registration**. Hive Mind and the Perforators now record the callbacks evaluated after registration. The additional Infernum calls for Dreadnautilus, Primordial Wyrm and Bereft Vassal are recorded alongside the original scopes without adding rows. Bereft Vassal and Sir Nautilus retain their pending inventory status with their pinned registration leads. [Coverage and scope](coverage.md) · [Independent review](review-1-1a.md)
 
-All book visibility remains **UNVERIFIED**. No gameplay, Boss Checklist, addon, progression or configuration source was edited.
+The inventory records canonical keys separately from vanilla initializer arguments. It identifies the Lunar Pillars as limbs, verifies the vanilla event pools for Dreadnautilus, Mothron and Goblin Warlock, and documents Patch Werk's natural Blood Moon association alongside its separate declaration. It also fixes Echdeath's directional inputs and records THE LORDE's special-seed route.
 
-## Exact next batch
+Echdeath's standalone registration and successful summoning, THE LORDE's ordinary-world access, the effective Fables replacement setting, and simultaneous Fables and Calamity display remain open. All book visibility remains **UNVERIFIED**.
 
-First, independent review of Phase 1.1A by GPT-6.2 Astra with High thinking. Review the source-registration counts, helper deductions, and Fables signature finding against the pinned assemblies.
+## Next review
 
-After review and separate authorization, **Phase 1.1B** should be a bounded follow-up on Calamity, Thorium and Fargo’s Souls: verify access and configuration predicates for Primordial Wyrm, THE LORDE, Thorium’s three registered minibosses, Fargo’s Champions and Echdeath. Reconcile pending rare enemies and non-boss-flag events for those three origins from spawn and event code. Check the two Fables overlaps against the installed replacement setting and, if required, an isolated disposable profile. Record any book observation separately from static registration. Leave the remaining content-mod catalogue grouping to a later batch.
+Phase 1.1B is on hold pending a focused independent re-review of these corrections. The re-review should check the corrected 131-row status split, source predicates and canonical keys, verified event relationships, Echdeath's input branches, and preservation of the 135 original NPC mappings and 44 pending records.
