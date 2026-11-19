@@ -1,10 +1,16 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1D-C — Calamity Entropy Legacy and Calamity Inheritance
+
+**Static batch complete. Independent review pending.** Entropy Legacy contributes five bosses and one miniboss. Inheritance contributes three independently summoned legacy boss variants. All nine groups have native Checklist declarations. Entropy's Primordial Wyrm fallback is inactive with Infernum present. Three Entropy parent bosses remain pending, and Delirium and Void Invasion remain additional leads. Finalized entries, external coverage and runtime access for the new groups are unverified. [Report](entropy-inheritance-1-1d-c.md) · [Matrix](entropy-inheritance-1-1d-c.csv)
+
+The inventory now contains **153 confirmed groups**, **16 pending catalogue records** and **179 total rows**. This batch resolves 14 of the 17 target records and adds nine distinct groups. Acropolis Machine was outside the original boss-NPC snapshot.
+
 ## Phase 1.1D-B — Catalyst and Calamity Hunt
 
-**Static batch complete.** Catalyst contributes Astrageldon and the Ascended Astral Slime miniboss. Calamity Hunt contributes Goozma. Astrageldon and Goozma have native Checklist boss declarations. Ascended Astral Slime has a Calamity miniboss health-bar declaration and a scoped native Checklist absence. Hunt adds Goozma to Calamity's Boss Rush in place of Old Duke and can interrupt Astrageldon during concurrent fights. Runtime access, finalized entries, external Checklist coverage and book visibility remain unverified. [Report](catalyst-hunt-1-1d-b.md) · [Matrix](catalyst-hunt-1-1d-b.csv)
+**Independent review passed with caveats.** Catalyst contributes Astrageldon and the Ascended Astral Slime miniboss. Calamity Hunt contributes Goozma. Astrageldon and Goozma have native Checklist boss declarations. Ascended Astral Slime has a Calamity miniboss health-bar declaration and a scoped native Checklist absence. Hunt adds Goozma to Calamity's Boss Rush in place of Old Duke and can interrupt Astrageldon during concurrent fights. Runtime access, finalized entries, external Checklist coverage and book visibility remain unverified. [Report](catalyst-hunt-1-1d-b.md) · [Matrix](catalyst-hunt-1-1d-b.csv) · [Independent review](review-1-1d-b.md)
 
-The inventory now contains **144 confirmed groups**, **30 pending catalogue rows** and **184 total rows**. The three new groups follow the 141-group baseline accepted after Phase 1.1D-A.
+Phase 1.1D-B closed with **144 confirmed groups**, **30 pending catalogue rows** and **184 total rows**. Goozma's Slime Rain ritual uses Calamity's Overloaded Sludge in the pinned pack. The Astral Communicator's active-boss check is specific to Astrageldon.
 
 ## Phase 1.1D-A — The Stars Above
 
