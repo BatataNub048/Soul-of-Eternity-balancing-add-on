@@ -1,10 +1,16 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1D-D — Calamity Overhaul
+
+**Static batch complete. Independent review pending.** Overhaul contributes Bloomsand Serpent, Festersand Serpent and Abyssal Crystal Shrimp with native Checklist declarations, plus the OldNet Warden special encounter. Deep Gaol Wraith, Foundry Overseer and The Undrowned retain pending status because normal Dungeonworld entry is unverified. The old tracking reflection lookup fails against the pinned Checklist assembly. Runtime access and finalized coverage for the new encounters remain unverified. [Report](overhaul-1-1d-d.md) · [Matrix](overhaul-1-1d-d.csv)
+
+The inventory contains **157 confirmed groups**, **13 pending catalogue records** and **180 total rows**. Three of the six Overhaul snapshot rows resolved and OldNet Warden was outside the snapshot.
+
 ## Phase 1.1D-C — Calamity Entropy Legacy and Calamity Inheritance
 
-**Static batch complete. Independent review pending.** Entropy Legacy contributes five bosses and one miniboss. Inheritance contributes three independently summoned legacy boss variants. All nine groups have native Checklist declarations. Entropy's Primordial Wyrm fallback is inactive with Infernum present. Three Entropy parent bosses remain pending, and Delirium and Void Invasion remain additional leads. Finalized entries, external coverage and runtime access for the new groups are unverified. [Report](entropy-inheritance-1-1d-c.md) · [Matrix](entropy-inheritance-1-1d-c.csv)
+**Independent review passed with caveats.** Entropy Legacy contributes five bosses and one miniboss. Inheritance contributes three independently summoned legacy boss variants. All nine groups have native Checklist declarations. Entropy's Primordial Wyrm fallback is inactive with Infernum present. Three Entropy parent bosses remain pending, and Delirium and Void Invasion remain additional leads. Finalized entries, external coverage and runtime access for the new groups are unverified. [Report](entropy-inheritance-1-1d-c.md) · [Matrix](entropy-inheritance-1-1d-c.csv) · [Independent review](review-1-1d-c.md)
 
-The inventory now contains **153 confirmed groups**, **16 pending catalogue records** and **179 total rows**. This batch resolves 14 of the 17 target records and adds nine distinct groups. Acropolis Machine was outside the original boss-NPC snapshot.
+Phase 1.1D-C closed with **153 confirmed groups**, **16 pending catalogue records** and **179 total rows**. The review corrections qualify the extra Acteriophage as Zenith-only, preserve Spirit Ring within the Fountain catalogue group, and identify the Wraith ritual circle as a projectile.
 
 ## Phase 1.1D-B — Catalyst and Calamity Hunt
 
