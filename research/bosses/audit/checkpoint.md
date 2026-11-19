@@ -1,10 +1,16 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1D-B — Catalyst and Calamity Hunt
+
+**Static batch complete.** Catalyst contributes Astrageldon and the Ascended Astral Slime miniboss. Calamity Hunt contributes Goozma. Astrageldon and Goozma have native Checklist boss declarations. Ascended Astral Slime has a Calamity miniboss health-bar declaration and a scoped native Checklist absence. Hunt adds Goozma to Calamity's Boss Rush in place of Old Duke and can interrupt Astrageldon during concurrent fights. Runtime access, finalized entries, external Checklist coverage and book visibility remain unverified. [Report](catalyst-hunt-1-1d-b.md) · [Matrix](catalyst-hunt-1-1d-b.csv)
+
+The inventory now contains **144 confirmed groups**, **30 pending catalogue rows** and **184 total rows**. The three new groups follow the 141-group baseline accepted after Phase 1.1D-A.
+
 ## Phase 1.1D-A — The Stars Above
 
-**Static batch complete. Independent review pending.** The Stars Above 2.1.8.4 has nine distinct bosses represented by 12 original boss-NPC records, plus the Everlasting Light world event. All nine bosses have native `LogBoss` calls. Starfarers and Tsukiyomi have explicit availability predicates. The native calls omit Castor, the opening Nalhaun phase and the opening Warrior phase from their respective NPC arguments. Everlasting Light has no native Checklist entry. Three additional NPC leads remain outside the confirmed count. [Report](starsabove-1-1d.md) · [Matrix](starsabove-1-1d.csv)
+**Independent review passed with caveats.** The Stars Above 2.1.8.4 has nine distinct bosses represented by 12 original boss-NPC records, plus the Everlasting Light world event. All nine bosses have native `LogBoss` calls. Starfarers and Tsukiyomi have explicit availability predicates. The native calls omit Castor, the opening Nalhaun phase and the opening Warrior phase from their respective NPC arguments. Everlasting Light has no native Checklist entry. Three additional NPC leads remain outside the confirmed count. [Report](starsabove-1-1d.md) · [Matrix](starsabove-1-1d.csv) · [Independent review](review-1-1d-a.md)
 
-The inventory now contains **141 confirmed groups**, comprising the original **131** and **10** additions from Phase 1.1D-A. There are **32** remaining pending catalogue rows. The original catalogue is unchanged. Runtime access, finalized entries, book visibility and external registration remain unverified for this batch. The next step is an independent Astra High review.
+Phase 1.1D-A closed with **141 confirmed groups** and **32 pending catalogue rows**. Using Progenitor Wish during preview advances Everlasting Light to the activation threshold. The Celestriad Root gift is a multiplayer fallback. The ordinary single-player route leads to the station in the Observatory. Runtime access, finalized entries, book visibility and external registration remain unverified for this batch.
 
 ## Phase 1.1C duplicate boss accessibility
 
