@@ -1,10 +1,16 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1D-A — The Stars Above
+
+**Static batch complete. Independent review pending.** The Stars Above 2.1.8.4 has nine distinct bosses represented by 12 original boss-NPC records, plus the Everlasting Light world event. All nine bosses have native `LogBoss` calls. Starfarers and Tsukiyomi have explicit availability predicates. The native calls omit Castor, the opening Nalhaun phase and the opening Warrior phase from their respective NPC arguments. Everlasting Light has no native Checklist entry. Three additional NPC leads remain outside the confirmed count. [Report](starsabove-1-1d.md) · [Matrix](starsabove-1-1d.csv)
+
+The inventory now contains **141 confirmed groups**, comprising the original **131** and **10** additions from Phase 1.1D-A. There are **32** remaining pending catalogue rows. The original catalogue is unchanged. Runtime access, finalized entries, book visibility and external registration remain unverified for this batch. The next step is an independent Astra High review.
+
 ## Phase 1.1C duplicate boss accessibility
 
-**Runtime batch complete. Independent review pending.** All four bosses spawned under both replacement settings. With replacement off the usual recipes were enabled. With replacement on the original Calamity recipes were disabled, but enabled recipes convert the Fables bucket and Hookstaff into Crossmod summons. Both supplied Crossmod items spawned the originals. [Accessibility report](accessibility-1-1c.md) · [Eight-case CSV](accessibility-1-1c.csv)
+**Independent review passed with caveats.** All four bosses spawned under both replacement settings. With replacement off the usual recipes were enabled. With replacement on the original Calamity recipes were disabled, but enabled recipes convert the Fables bucket and Hookstaff into Crossmod summons. Both supplied Crossmod items spawned the originals. [Accessibility report](accessibility-1-1c.md) · [Eight-case CSV](accessibility-1-1c.csv) · [Independent review](review-1-1c.md)
 
-Keep all four registrations for the pinned pack. Owner-qualified names and configuration-aware summon hints would clarify the duplicate labels. End-to-end item acquisition, shop routes and ambient encounters remain unverified. The next separately authorized step is the independent Phase 1.1C review using GPT-6.2 Astra with High thinking.
+Keep all four registrations for the pinned pack. Owner-qualified names and configuration-aware summon hints would clarify the duplicate labels. End-to-end item acquisition, shop routes and ambient encounters remain unverified.
 
 ## Phase 1.1B runtime batch
 
@@ -29,7 +35,7 @@ Phase 1.1C followed the review and tested accessibility for the two duplicate pa
 
 ### Static results
 
-[Encounter inventory](encounters.csv) records **131 confirmed distinct encounters or event groups**. It also retains two separately registered Acid Rain tier rows, four candidates, four excluded helpers or dummies, and 44 pending catalogue records. Confirmed distinct rows break down as 66 Terraria, 34 Calamity, 14 Thorium, 16 Fargo’s Souls, and Echdeath from Fargo’s Souls Mod DLC Recreated. The [original evidence](../encounter-catalogue.json) remains byte-identical.
+At the close of Phase 1.1A, the [encounter inventory](encounters.csv) recorded **131 confirmed distinct encounters or event groups**, two separately registered Acid Rain tier rows, four candidates, four excluded helpers or dummies, and 44 pending catalogue records. The 131 groups break down as 66 Terraria, 34 Calamity, 14 Thorium, 16 Fargo’s Souls, and Echdeath from Fargo’s Souls Mod DLC Recreated. The [original evidence](../encounter-catalogue.json) remains byte-identical.
 
 The original 131 rows include **94 declarations without an identified entry-specific availability predicate, 8 declarations with one, 28 scoped standalone absences and 1 unresolved registration**. Hive Mind and the Perforators now record the callbacks evaluated after registration. The additional Infernum calls for Dreadnautilus, Primordial Wyrm and Bereft Vassal are recorded alongside the original scopes without adding rows. Bereft Vassal and Sir Nautilus retain their pending inventory status with their pinned registration leads. [Coverage and scope](coverage.md) · [Independent review](review-1-1a.md)
 
