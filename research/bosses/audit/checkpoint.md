@@ -1,15 +1,21 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1C duplicate boss accessibility
+
+**Runtime batch complete. Independent review pending.** All four bosses spawned under both replacement settings. With replacement off the usual recipes were enabled. With replacement on the original Calamity recipes were disabled, but enabled recipes convert the Fables bucket and Hookstaff into Crossmod summons. Both supplied Crossmod items spawned the originals. [Accessibility report](accessibility-1-1c.md) · [Eight-case CSV](accessibility-1-1c.csv)
+
+Keep all four registrations for the pinned pack. Owner-qualified names and configuration-aware summon hints would clarify the duplicate labels. End-to-end item acquisition, shop routes and ambient encounters remain unverified. The next separately authorized step is the independent Phase 1.1C review using GPT-6.2 Astra with High thinking.
+
 ## Phase 1.1B runtime batch
 
-**Runtime evidence recorded. Independent review pending.** Tested the exact 71-package baseline and then used a private client-only probe in two configurations of the same pinned package set. All 71 package hashes matched. Tests used disposable Titanic save copies on Terraria 1.4.4.9 and tModLoader 2026.9.3.1. [Runtime report](runtime-1-1b.md) · [Scenario CSV](runtime-entries-1-1b.csv)
+**Independent review passed with caveats.** [Phase 1.1B review](review-1-1b.md). Tested the exact 71-package baseline and then used a private client-only probe in two configurations of the same pinned package set. All 71 package hashes matched. Tests used disposable Titanic save copies on Terraria 1.4.4.9 and tModLoader 2026.9.3.1. [Runtime report](runtime-1-1b.md) · [Scenario CSV](runtime-entries-1-1b.csv)
 
 - All three Infernum keys, both owners’ Desert Scourge and Crabulon keys, and Fables Sir Nautilus reached the finalized dictionary. All eight were seen by name in the actual book under applicable settings.
 - Dreadnautilus and Primordial Wyrm required Infernum plus Hardmode for availability. Bereft Vassal required Infernum plus the Cultist flag. The runtime report records when Hide Unavailable removed a row and when Progressive Checklist masked its name.
-- Both same-name pairs appeared with Fables replacement enabled and disabled. When enabled, Fables classified the Calamity NPCs as replaced while neither checklist detour attached. Normal-route summon access for the two pairs and the Sir Nautilus duel remains unverified.
+- Both same-name pairs appeared with Fables replacement enabled and disabled. When enabled, Fables classified the Calamity NPCs as replaced while neither checklist detour attached. Phase 1.1C tested the two pairs. Starting the Sir Nautilus duel remains unverified.
 - Echdeath had no standalone finalized key or book row in the tested pack. Its successful summon remains unverified. Phase 1.1A retains the pinned summoning prerequisites.
 
-The next action is an independent Phase 1.1B review using GPT-6.2 Astra with High thinking. Review the live dictionary versus the book observations, the availability matrix and the replacement-on and replacement-off results before the next runtime investigation. After review, test the normal summoning routes for the two Calamity/Fables pairs under both settings to determine which same-name rows correspond to reachable fights. Progression ordering, drops and gameplay implementation are outside this checkpoint.
+Phase 1.1C followed the review and tested accessibility for the two duplicate pairs. [Phase 1.1C report](accessibility-1-1c.md)
 
 ## Phase 1.1A static baseline
 
@@ -19,7 +25,7 @@ The next action is an independent Phase 1.1B review using GPT-6.2 Astra with Hig
 
 - All **71** pinned TMOD identities and SHA-256 values matched. All **71** named DLLs received a static type and IL-literal screen. The [coverage matrix](mod-coverage.csv) identifies seven targeted static reviews and gives the preliminary classification of the other 64 mods.
 - Completed static review of the **registration methods** for vanilla in Boss Checklist 2.2.4, Calamity 2.2.4, Thorium 1.7.2.8 and Fargo’s Souls 1.7.3.9. The full encounter roster of each content group still needs rare-enemy, event and access-condition follow-up. No content mod has a completed in-game audit.
-- FargowiltasCrossmod, FargosSoulsModDLCRecreated and CalamityFables received targeted integration checks only. Boss Checklist’s initializer and dispatcher were inspected; its actual in-game visibility was not tested.
+- FargowiltasCrossmod, FargosSoulsModDLCRecreated and CalamityFables received targeted integration checks only. Phase 1.1A inspected the Boss Checklist initializer and dispatcher. Phase 1.1B later tested targeted in-game visibility.
 
 ### Static results
 
