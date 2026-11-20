@@ -1,10 +1,16 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1E-3 — Fargo and Calamity Fables
+
+**Static audit complete. Independent review pending.** Sir Nautilus has a source-defined first duel. Both Fables counterpart rows now count separately from the original Calamity encounters. Permafrost is the Crossmod Cryogen phase and Echdeath retains its existing group. Timber’s native declaration lists the body and its Expert branch creates the head. [E3 report](fargo-fables-1-1e-3.md) · [Matrix](fargo-fables-1-1e-3.csv)
+
+The inventory has **165 confirmed groups, 6 pending records and 181 rows**. There are **52 preliminary mods**, **26 outstanding caveats** and **6 resolved**. E3 applied the E2 loot wording and added the Jharim and Scraper multiplayer questions under BC-024. Phase 1 remains open.
+
 ## Phase 1.1E-2 — CalValEX and Unofficial Calamity Whips
 
-**Static audit complete. Independent review pending.** Fogbound and Meldosaurus are independent Jharim-triggered fights. Scraper of Stars is one worm boss with linked segments and detached attackers. Orthocera Apparition is a separate noncombat sighting outside the original catalogue. All four have scoped native Checklist absence. External and finalized coverage and ordinary gameplay access remain unverified. [Audit](calvalex-whips-1-1e-2.md) · [Matrix](calvalex-whips-1-1e-2.csv)
+**AUDIT BATCH ACCEPTED. Independent review passed with caveats.** Fogbound and Meldosaurus are independent Jharim-triggered fights. Scraper of Stars is one worm boss with linked segments and detached attackers. Orthocera Apparition is a separate noncombat sighting outside the original catalogue. All four have scoped native Checklist absence. External and finalized coverage and ordinary gameplay access remain unverified. [Audit](calvalex-whips-1-1e-2.md) · [Matrix](calvalex-whips-1-1e-2.csv) · [E2 review](review-1-1e-2.md)
 
-The inventory has **162 confirmed groups, 7 pending records and 181 rows**. There are **54 preliminary mod-coverage rows** and **26 outstanding caveats**, with six resolved. E2 applied the E1 review's Vassal respawn and BC-001 wording corrections. Phase 1 remains open.
+After E2 the inventory had **162 confirmed groups, 7 pending records and 181 rows**. There are **54 preliminary mod-coverage rows** and **26 outstanding caveats**, with six resolved. E2 applied the E1 review's Vassal respawn and BC-001 wording corrections. Phase 1 remains open.
 
 ## Phase 1.1E-1 — Infernum and WoTM
 
