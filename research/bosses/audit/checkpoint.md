@@ -1,8 +1,14 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1E-1 — Infernum and WoTM
+
+**Static audit complete. Independent review pending.** Bereft Vassal is a distinct Lost Colosseum encounter with a Great Sand Shark phase. Infernum's Ares Energy Katana and WoTM's Ares Hand belong to the existing Exo Mechs encounter. WoTM detours the four main mechs' Checklist despawn messages and adds its hand to Draedon's Boss Rush cleanup exemptions. Infernum's three ordinary access routes remain unverified in-game. [Audit](infernum-wotm-1-1e-1.md) · [Matrix](infernum-wotm-1-1e-1.csv)
+
+The inventory now has **158 confirmed groups, 10 pending records and 180 rows**. There are 56 preliminary mod-coverage rows and 26 outstanding caveats, with six resolved. Phase 1 remains open.
+
 ## Phase 1.1E-0 — Caveat register and completion plan
 
-The census remains at **157 confirmed groups, 13 pending records and 180 inventory rows**. The register captures outstanding evidence, documentation and compatibility issues. The plan triages all 58 preliminary coverage rows and defines coverage and final closure separately. Phase 1 remains open. [Caveat register](caveats-register.md) · [Completion plan](census-completion-plan.md)
+The E-0 census stood at **157 confirmed groups, 13 pending records and 180 inventory rows**. The register captures outstanding evidence, documentation and compatibility issues. The plan triages all 58 preliminary coverage rows and defines coverage and final closure separately. Phase 1 remains open. [Caveat register](caveats-register.md) · [Completion plan](census-completion-plan.md)
 
 ## Phase 1.1D-D — Calamity Overhaul
 
