@@ -1,8 +1,12 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1E-0 — Caveat register and completion plan
+
+The census remains at **157 confirmed groups, 13 pending records and 180 inventory rows**. The register captures outstanding evidence, documentation and compatibility issues. The plan triages all 58 preliminary coverage rows and defines coverage and final closure separately. Phase 1 remains open. [Caveat register](caveats-register.md) · [Completion plan](census-completion-plan.md)
+
 ## Phase 1.1D-D — Calamity Overhaul
 
-**Static batch complete. Independent review pending.** Overhaul contributes Bloomsand Serpent, Festersand Serpent and Abyssal Crystal Shrimp with native Checklist declarations, plus the OldNet Warden special encounter. Deep Gaol Wraith, Foundry Overseer and The Undrowned retain pending status because normal Dungeonworld entry is unverified. The old tracking reflection lookup fails against the pinned Checklist assembly. Runtime access and finalized coverage for the new encounters remain unverified. [Report](overhaul-1-1d-d.md) · [Matrix](overhaul-1-1d-d.csv)
+**AUDIT BATCH ACCEPTED. Independent review passed with caveats.** Overhaul contributes Bloomsand Serpent, Festersand Serpent and Abyssal Crystal Shrimp with native Checklist declarations, plus the OldNet Warden special encounter. Deep Gaol Wraith, Foundry Overseer and The Undrowned retain pending status because normal Dungeonworld entry is unverified. The old tracking reflection lookup fails against the pinned Checklist assembly. Runtime access and finalized coverage for the new encounters remain unverified. [Report](overhaul-1-1d-d.md) · [Matrix](overhaul-1-1d-d.csv) · [Independent review](review-1-1d-d.md)
 
 The inventory contains **157 confirmed groups**, **13 pending catalogue records** and **180 total rows**. Three of the six Overhaul snapshot rows resolved and OldNet Warden was outside the snapshot.
 
