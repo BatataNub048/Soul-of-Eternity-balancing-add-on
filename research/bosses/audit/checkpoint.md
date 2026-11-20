@@ -1,10 +1,16 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1E-2 — CalValEX and Unofficial Calamity Whips
+
+**Static audit complete. Independent review pending.** Fogbound and Meldosaurus are independent Jharim-triggered fights. Scraper of Stars is one worm boss with linked segments and detached attackers. Orthocera Apparition is a separate noncombat sighting outside the original catalogue. All four have scoped native Checklist absence. External and finalized coverage and ordinary gameplay access remain unverified. [Audit](calvalex-whips-1-1e-2.md) · [Matrix](calvalex-whips-1-1e-2.csv)
+
+The inventory has **162 confirmed groups, 7 pending records and 181 rows**. There are **54 preliminary mod-coverage rows** and **26 outstanding caveats**, with six resolved. E2 applied the E1 review's Vassal respawn and BC-001 wording corrections. Phase 1 remains open.
+
 ## Phase 1.1E-1 — Infernum and WoTM
 
-**Static audit complete. Independent review pending.** Bereft Vassal is a distinct Lost Colosseum encounter with a Great Sand Shark phase. Infernum's Ares Energy Katana and WoTM's Ares Hand belong to the existing Exo Mechs encounter. WoTM detours the four main mechs' Checklist despawn messages and adds its hand to Draedon's Boss Rush cleanup exemptions. Infernum's three ordinary access routes remain unverified in-game. [Audit](infernum-wotm-1-1e-1.md) · [Matrix](infernum-wotm-1-1e-1.csv)
+**AUDIT BATCH ACCEPTED. Independent review passed with caveats.** Bereft Vassal is a distinct Lost Colosseum encounter with a Great Sand Shark phase. Infernum's Ares Energy Katana and WoTM's Ares Hand belong to the existing Exo Mechs encounter. WoTM detours the four main mechs' Checklist despawn messages and adds its hand to Draedon's Boss Rush cleanup exemptions. Infernum's three ordinary access routes remain unverified in-game. [Audit](infernum-wotm-1-1e-1.md) · [Matrix](infernum-wotm-1-1e-1.csv) · [E1 review](review-1-1e-1.md)
 
-The inventory now has **158 confirmed groups, 10 pending records and 180 rows**. There are 56 preliminary mod-coverage rows and 26 outstanding caveats, with six resolved. Phase 1 remains open.
+After E1 the inventory had **158 confirmed groups, 10 pending records and 180 rows**, with 56 preliminary mod-coverage rows.
 
 ## Phase 1.1E-0 — Caveat register and completion plan
 
