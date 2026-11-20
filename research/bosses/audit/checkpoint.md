@@ -1,10 +1,16 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1E-5 — Thorium-facing integrations
+
+**Static audit complete. Independent review pending.** Ragnarok alters existing Thorium AI and can add existing fights to Boss Rush. CalamityBardHealer’s AI defers to Ragnarok, while independent combat and loot hooks can still apply. Thoriamity Redux provides equipment and consumable compatibility. Patch Werk retains its native miniboss entry and is absent from the default and Thorium-submitted Blood Moon lists. Finalized pools and tracking remain unverified. [E5 audit](thorium-integrations-1-1e-5.md) · [Matrix](thorium-integrations-1-1e-5.csv)
+
+The census has **165 confirmed groups, 6 pending and 181 unique inventory rows**. There are **49 preliminary mods**, with **25 open, 1 blocked and 6 resolved** caveats.
+
 ## Phase 1.1E-4 — Entropy and Overhaul access
 
-**Static audit complete. Independent review pending.** Abyssal Wraith, Spirit Fountain and Void Pope lack supported initial routes. The three Dungeonworld room fights remain pending and BC-020 remains blocked. Delirium is disabled. Void Invasion and the scripted Funeral Cortege remain uncounted. E4 carries the approved Cryo Key and Nautilus corrections into the E3 files and inventory. [E4 report](entropy-overhaul-1-1e-4.md) · [Matrix](entropy-overhaul-1-1e-4.csv)
+**AUDIT BATCH ACCEPTED — PASS WITH CAVEATS.** [E4 review](review-1-1e-4.md). Abyssal Wraith, Spirit Fountain and Void Pope lack supported initial routes. The three Dungeonworld room fights remain pending and BC-020 remains blocked. Delirium is disabled. Void Invasion and the scripted Funeral Cortege remain uncounted. E4 carries the approved Cryo Key and Nautilus corrections into the E3 files and inventory. [E4 report](entropy-overhaul-1-1e-4.md) · [Matrix](entropy-overhaul-1-1e-4.csv)
 
-Current census is **165 confirmed groups, 6 pending rows, 181 unique inventory IDs and 52 preliminary mods**. The register has **25 open, 1 blocked and 6 resolved**. Phase 1 remains open.
+After E4 the census had **165 confirmed groups, 6 pending rows, 181 unique inventory IDs and 52 preliminary mods**. The register has **25 open, 1 blocked and 6 resolved**. Phase 1 remains open.
 
 ## Phase 1.1E-3 — Fargo and Calamity Fables
 
