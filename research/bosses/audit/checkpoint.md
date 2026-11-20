@@ -1,10 +1,16 @@
 # Boss Checklist audit checkpoint
 
+## Phase 1.1E-4 — Entropy and Overhaul access
+
+**Static audit complete. Independent review pending.** Abyssal Wraith, Spirit Fountain and Void Pope lack supported initial routes. The three Dungeonworld room fights remain pending and BC-020 remains blocked. Delirium is disabled. Void Invasion and the scripted Funeral Cortege remain uncounted. E4 carries the approved Cryo Key and Nautilus corrections into the E3 files and inventory. [E4 report](entropy-overhaul-1-1e-4.md) · [Matrix](entropy-overhaul-1-1e-4.csv)
+
+Current census is **165 confirmed groups, 6 pending rows, 181 unique inventory IDs and 52 preliminary mods**. The register has **25 open, 1 blocked and 6 resolved**. Phase 1 remains open.
+
 ## Phase 1.1E-3 — Fargo and Calamity Fables
 
-**Static audit complete. Independent review pending.** Sir Nautilus has a source-defined first duel. Both Fables counterpart rows now count separately from the original Calamity encounters. Permafrost is the Crossmod Cryogen phase and Echdeath retains its existing group. Timber’s native declaration lists the body and its Expert branch creates the head. [E3 report](fargo-fables-1-1e-3.md) · [Matrix](fargo-fables-1-1e-3.csv)
+**Independent review passed with caveats.** [E3 review](review-1-1e-3.md). Sir Nautilus has a source-defined first duel. Both Fables counterpart rows now count separately from the original Calamity encounters. Permafrost is the Crossmod Cryogen phase and Echdeath retains its existing group. Timber’s native declaration lists the body and its Expert branch creates the head. [E3 report](fargo-fables-1-1e-3.md) · [Matrix](fargo-fables-1-1e-3.csv)
 
-The inventory has **165 confirmed groups, 6 pending records and 181 rows**. There are **52 preliminary mods**, **26 outstanding caveats** and **6 resolved**. E3 applied the E2 loot wording and added the Jharim and Scraper multiplayer questions under BC-024. Phase 1 remains open.
+After E3 the inventory had **165 confirmed groups, 6 pending records and 181 rows**. There are **52 preliminary mods**, **26 outstanding caveats** and **6 resolved**. E3 applied the E2 loot wording and added the Jharim and Scraper multiplayer questions under BC-024. Phase 1 remains open.
 
 ## Phase 1.1E-2 — CalValEX and Unofficial Calamity Whips
 
